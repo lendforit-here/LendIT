@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile | LendIT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="profile.css">
+
+  <script src="../transition.js"></script>
+</head>
+<body>
+  <!-- shared.js adds the navbar (same header and logo as My Borrows) -->
+  <script src="../shared.js"></script>
+
+  <main class="bp-main">
+    <h1 class="bp-title">PROFILE</h1>
+    <p class="today" id="today">Today:</p>
+
+    <div class="grid">
+
+      <!-- LEFT COLUMN -->
+      <section class="left">
+        <div class="card user-card" id="userCard">
+          <div class="avatar" id="avatar" role="button" tabindex="0" aria-label="View profile photo">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="21" fill="#fff"/><path d="M12 100c0-22 16-34 38-34s38 12 38 34z" fill="#fff"/></svg>
+            <img id="avatarImg" alt="Profile photo">
+            <label class="hint" for="avatarInput">Change photo</label>
+            <input type="file" id="avatarInput" accept="image/*">
+          </div>
+          <input class="username-input" id="username" value="@sort" readonly aria-label="Username" maxlength="30">
+          <p class="role">User Role: Student</p>
+          <div class="card-actions">
+            <button class="btn-small" id="editBtn" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 21l3.5-.8L19 7.7 16.3 5 3.8 17.5 3 21zM17.7 3.6l2.7 2.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              <span id="editLabel">Edit Profile</span>
+            </button>
+            <button class="btn-small btn-ghost" id="cancelBtn" type="button" hidden>Cancel</button>
+          </div>
+        </div>
+
+        <div class="card rating-card" id="ratingCard">
+          <span class="label-text">User Rating:</span>
+          <div class="stars" id="stars" role="group" aria-label="Rate this user"></div>
+          <div class="rating-meta">
+            <span id="ratingNum" aria-live="polite"></span>
+            <span class="tier" id="ratingTier"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <section class="right">
+        <form class="card info-card" id="profileForm" novalidate>
+          <div class="row">
+            <label class="pill label" for="name">Name:</label>
+            <input class="pill value" id="name" value="Juan Dela Cruz" readonly>
+          </div>
+          <div class="row">
+            <label class="pill label" for="section">Year &amp; Section:</label>
+            <input class="pill value" id="section" value="BSIT NA3A" readonly>
+          </div>
+          <div class="row">
+            <label class="pill label" for="phone">Phone:</label>
+            <input class="pill value" id="phone" type="tel" value="1234-567-8910" readonly>
+          </div>
+          <div class="row">
+            <label class="pill label" for="email">Email:</label>
+            <input class="pill value" id="email" type="email" value="juandelacruz@gmail.com" readonly>
+          </div>
+          <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="card campus-card">
+          <label class="pill label" for="campus">Campus:</label>
+          <select class="pill value wide" id="campus" disabled aria-label="Campus">
+            <option value="Main Campus">Main Campus</option>
+            <option value="Lucinda Campus">Lucinda Campus</option>
+            <option value="San Isidro Campus" selected>San Isidro Campus</option>
+            <option value="Capas Campus">Capas Campus</option>
+            <option value="Concepcion Campus">Concepcion Campus</option>
+            <option value="La Paz Campus">La Paz Campus</option>
+          </select>
+        </div>
+      </section>
+    </div>
+
+    <div class="logout-wrap">
+      <button class="btn-logout" id="logoutBtn" type="button">Log Out</button>
+    </div>
+  </main>
+
+  <!-- POP-UPS -->
+  <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <h2 id="modalTitle"></h2>
+      <p id="modalText"></p>
+      <div class="modal-actions">
+        <button class="btn-small" id="modalOk" type="button">Yes</button>
+        <button class="btn-small btn-ghost" id="modalCancel" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="photoViewer" hidden role="dialog" aria-modal="true" aria-label="Profile photo">
+    <div class="viewer-box">
+      <button class="viewer-close" id="viewerClose" type="button" aria-label="Close">&times;</button>
+      <div class="viewer-body" id="viewerBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- FOOTER (same as My Borrows) -->
+  <script src="profile.js"></script>
+</body>
+</html>

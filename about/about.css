@@ -1,0 +1,44 @@
+body { margin: 0; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; color: #fff; font-family: "Poppins", "Segoe UI", Arial, sans-serif; }
+.ab-main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 24px 5% 40px; }
+
+.ab-back { display: inline-flex; align-items: center; gap: 8px; color: #fff; text-decoration: none; font-size: .9rem; font-weight: 600; padding: 8px 16px 8px 12px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); transition: .25s; }
+.ab-back svg { width: 18px; height: 18px; fill: #fff; transition: transform .25s; }
+.ab-back:hover { background: rgba(255,255,255,.22); }
+.ab-back:hover svg { transform: translateX(-3px); }
+
+.ab-title { margin: 18px 0 14px; text-align: center; font-family: "Syne", "Poppins", sans-serif; font-size: 1.7rem; letter-spacing: 1.5px; text-shadow: 0 0 16px rgba(47,181,255,.5); }
+.ab-title::after { content: ""; display: block; width: 56px; height: 3px; margin: 8px auto 0; border-radius: 3px; background: linear-gradient(90deg, #2fb5ff, #5b2bd1); }
+
+.ab-brands { display: flex; justify-content: center; gap: clamp(14px, 4vw, 40px); flex-wrap: wrap; margin-bottom: 34px; font-family: "Syne", "Poppins", sans-serif; font-weight: 700; font-size: clamp(1.1rem, 3vw, 1.6rem); letter-spacing: 1px; }
+.ab-brands span { background: linear-gradient(90deg, #7ee8fa, #b08cff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.ab-roster { display: flex; justify-content: center; align-items: flex-end; gap: clamp(10px, 2vw, 24px); }
+.ab-card { margin: 0; flex: 1 1 0; max-width: 170px; text-align: center; }
+.ab-card.leader { max-width: 190px; }
+.ab-photo { width: 130px; max-width: 100%; margin: 0 auto; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 16px; border: 2px solid rgba(255,255,255,.3); box-shadow: 0 8px 24px rgba(0,0,0,.35); background: #fff; transition: transform .25s, box-shadow .25s; }
+.ab-card.leader .ab-photo { width: 160px; border: 4px solid #0b1f8a; box-shadow: 0 0 0 2px #fff, 0 12px 30px rgba(0,0,0,.45); }
+.ab-card.leader:hover .ab-photo { border-color: #0b1f8a; box-shadow: 0 0 0 2px #fff, 0 12px 28px rgba(47,181,255,.5); }
+.ab-card:hover .ab-photo { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(47,181,255,.4); }
+.ab-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ab-card figcaption { margin-top: 12px; display: flex; flex-direction: column; gap: 3px; }
+.ab-role { font-size: .68rem; letter-spacing: 1.2px; text-transform: uppercase; color: #7ee8fa; font-weight: 600; }
+.ab-name { font-size: .82rem; font-weight: 600; line-height: 1.3; min-height: 2.6em; }
+
+.ab-meaning { max-width: 760px; margin: 44px auto 0; padding: 22px 26px; text-align: center; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(6px); }
+.ab-meaning h2 { margin: 0 0 10px; font-family: "Syne", "Poppins", sans-serif; font-size: 1.1rem; letter-spacing: 1px; }
+.ab-meaning p { margin: 0; line-height: 1.7; font-size: .92rem; color: rgba(255,255,255,.88); }
+
+@media (max-width: 700px) {
+  .ab-main { box-sizing: border-box; padding: 18px 16px 32px; }
+  .ab-title { font-size: 1.3rem; }
+  .ab-roster { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; margin: 0 auto; align-items: start; }
+  .ab-card, .ab-card.leader { max-width: none; width: 100%; }
+  .ab-card.leader { order: -1; grid-column: 1 / -1; justify-self: center; width: calc(50% - 7px); }
+  .ab-photo, .ab-card.leader .ab-photo { width: 100%; border-radius: 12px; }
+  .ab-roster { max-width: 300px; }
+  .ab-name { font-size: .74rem; }
+  .ab-role { font-size: .62rem; }
+  .ab-name { min-height: 0; }
+  .ab-meaning { margin-top: 32px; padding: 18px 18px; }
+  .ab-meaning p { font-size: .85rem; }
+}

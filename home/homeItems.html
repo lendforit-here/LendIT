@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lend IT</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- Shared files -->
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+  <script src="../shared.js"></script>
+
+  <main class="detail">
+    <h2 class="band">SPECS &amp; DESCRIPTION</h2>
+
+    <section class="detail-wrap">
+      <div class="detail-left">
+        <h3 class="detail-name" id="itemName"></h3>
+        <div class="detail-img" id="itemImg"></div>
+        <div class="count-pill">AVAILABLE ITEM: <span id="itemCount"></span></div>
+      </div>
+
+      <div class="detail-right">
+        <div class="panel">
+          <div class="panel-inner">
+            <h3 class="condition">CONDITION: <span id="itemCondition"></span></h3>
+            <p class="info"><strong>DAMAGED:</strong> <span id="itemDamaged"></span></p>
+            <p class="info"><strong>AVAILABILITY:</strong> <span id="itemAvail" class="avail-text"></span></p>
+            <p class="info"><strong>LIABILITY:</strong> <span id="itemLiability"></span></p>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="borrowBtn">BORROW</button>
+          <button class="btn" id="reserveBtn">RESERVE</button>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="band" id="otherBand">OTHER ITEMS</h2>
+
+    <section class="section" id="otherSection">
+      <div class="carousel-wrap">
+        <button class="arrow left" id="prevBtn" aria-label="Previous">&#10094;</button>
+        <div class="carousel" id="otherCarousel"></div>
+        <button class="arrow right" id="nextBtn" aria-label="Next">&#10095;</button>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="modal" id="waiverModal" hidden>
+    <div class="modal-box waiver-box" role="dialog" aria-modal="true" aria-labelledby="waiverTitle" tabindex="-1">
+      <h2 class="modal-title" id="waiverTitle">WAIVER AGREEMENT</h2>
+      <div class="waiver-text" tabindex="0">
+        <div class="clause">
+          <h3>1. Borrower Responsibility</h3>
+          <p>By clicking "AGREE", I acknowledge that I am borrowing this university-owned equipment for official academic or institutional use. I assume full responsibility for the proper handling, care, and timely return of the item in the same condition as when it was issued.</p>
+        </div>
+        <div class="clause">
+          <h3>2. Item Return & Schedule</h3>
+          <p>I agree to return the borrowed equipment on or before the specified expected return date and time. Failure to do so may result in overdue account flags, temporary suspension of borrowing privileges, and applicable late penalties.</p>
+        </div>
+        <div class="clause">
+          <h3>3. Damage & Loss Assessment (Penalty Policy)</h3>
+          <p>In the event that the borrowed equipment is returned with damage, missing parts, or functional defects caused by negligence or improper handling:</p>
+          <ul>
+            <li>Damage Fee: A mandatory penalty fee equivalent to 30% to 40% of the total cost of the item will be assessed against the borrower, depending on the severity of the damage determined by the University Asset Management Office.</li>
+            <li>Loss / Unrepairable Damage: In cases of severe damage rendering the item unusable, or total loss of the item, the borrower will be held liable for full replacement or maximum penalty coverage.</li>
+          </ul>
+          </div>
+        <div class="clause">
+          <h3>4. Terms Acceptance</h3>
+          <p>I have read, understood, and agreed to all the terms stated above. I confirm that my university ID verification and digital signature upon checkout serve as a binding agreement.</p>  
+        </div>
+      <div class="actions">
+        <button class="btn" id="cancelBtn">CANCEL</button>
+        <button class="btn" id="agreeBtn">AGREE</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="reserveModal" hidden>
+    <div class="modal-box notice-box" role="dialog" aria-modal="true" aria-labelledby="reserveTitle" tabindex="-1">
+      <h2 class="modal-title" id="reserveTitle">RESERVATION REQUESTED</h2>
+      <p class="notice-text" id="reserveMessage"></p>
+      <div class="actions">
+        <button class="btn" id="reserveOkBtn">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../items-data.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>

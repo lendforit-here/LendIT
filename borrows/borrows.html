@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Borrows | LendIT</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="borrows.css">
+  
+  <script src="../transition.js"></script>
+</head>
+<body>
+  <script src="../shared.js"></script>
+
+  <main class="bp-main">
+    <section class="myborrows" id="myborrows">
+      <h1 class="bp-title">MY BORROWS</h1>
+
+      <div class="filter-container">
+        <div class="filter-label">FILTER BY STATUS:</div>
+
+        <div class="filter-buttons">
+          <button type="button" class="filter-btn active" onclick="filterItems('ALL')">ALL</button>
+          <button type="button" class="filter-btn" onclick="filterItems('REQUESTED')">REQUESTED</button>
+          <button type="button" class="filter-btn" onclick="filterItems('BORROWED')">BORROWED</button>
+          <button type="button" class="filter-btn" onclick="filterItems('OVERDUE')">OVERDUE</button>
+          <button type="button" class="filter-btn" onclick="filterItems('RETURNED')">RETURNED</button>
+          <button type="button" class="filter-btn" onclick="filterItems('DECLINED')">DECLINED</button>
+        </div>
+
+        <div class="filter-dropdown-wrapper">
+          <select class="filter-dropdown" id="filter-select" aria-label="Filter by status" onchange="filterItems(this.value)">
+            <option value="ALL">ALL</option>
+            <option value="REQUESTED">REQUESTED</option>
+            <option value="BORROWED">BORROWED</option>
+            <option value="OVERDUE">OVERDUE</option>
+            <option value="RETURNED">RETURNED</option>
+            <option value="DECLINED">DECLINED</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header">
+          <span>ITEM</span>
+          <span>DATE BORROWED</span>
+          <span>DUE DATE</span>
+          <span>STATUS</span>
+          <span>ACTION</span>
+        </div>
+        <div id="items-list-container"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="modal" id="confirm-dialog" aria-labelledby="confirm-title">
+    <h2 class="modal-title" id="confirm-title">Are you sure you want to return the item?</h2>
+    <div class="modal-actions">
+      <button type="button" class="modal-btn modal-btn-secondary" id="confirm-no">NO</button>
+      <button type="button" class="modal-btn modal-btn-primary" id="confirm-yes">YES</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="success-dialog" aria-labelledby="success-title">
+    <span class="modal-icon" aria-hidden="true">&#10004;</span>
+    <h2 class="modal-title" id="success-title">SUCCESSFULLY RETURNED THE ITEM</h2>
+    <div class="modal-actions">
+      <button type="button" class="modal-btn modal-btn-primary" id="success-ok">OK</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal zoom-modal" id="zoom-dialog" aria-label="Item picture">
+    <button type="button" class="zoom-close" id="zoom-close" aria-label="Close">&times;</button>
+    <img id="zoom-img" class="zoom-img" alt="" hidden>
+    <div id="zoom-fallback" class="zoom-fallback" hidden></div>
+    <p id="zoom-caption" class="zoom-caption"></p>
+  </dialog>
+
+  <script src="../items-data.js"></script>
+  <script src="borrows.js"></script>
+</body>
+</html>

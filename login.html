@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LendIT – Find it. Check it. Lend it.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Archivo:wdth,wght@125,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+<video class="bg-video" id="bgVideo" autoplay muted loop playsinline preload="auto" poster="video/login-bg-poster.jpg" aria-hidden="true" tabindex="-1">
+  <source src="video/login-bg.mp4" type="video/mp4">
+</video>
+
+<main>
+  <img class="logo" alt="LendIT logo" width="113" height="110" src="images/landing-logo.png">
+  <section id="landing" style="display:contents">
+    <div class="hero-wrap"><img class="hero" alt="Find it. Check it. Lend it." width="1600" height="786" src="images/hero.png"></div>
+    <button class="btn" id="start" type="button">GET STARTED</button>
+  </section>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal">
+    <div class="mhead">
+      <button class="ib" id="back" aria-label="Back">&#8592;</button>
+      <span id="mtitle">Log in or sign up</span>
+      <button class="ib" id="close" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="mbody">
+
+      <div class="view" id="v-start"><form data-f="start" novalidate>
+        <h2>Welcome to LendIT</h2>
+        <label for="email">Email address</label>
+        <div class="field"><input id="email" type="email" placeholder="Enter email address" autocomplete="email" inputmode="email"></div>
+        <label for="pass">Password</label>
+        <div class="field"><input id="pass" type="password" placeholder="Enter password" autocomplete="current-password"><button type="button" class="eye" aria-label="Show password"></button></div>
+        <div class="row" style="justify-content:flex-end"><button type="button" class="link" data-go="forgot">Forgot password?</button></div>
+        <p class="msg" role="alert"></p>
+        <button class="go" type="submit">LOG IN</button>
+        <div class="div">Or sign in with</div>
+        <div class="soc">
+          <button type="button" data-p="Google" aria-label="Sign in with Google"><span data-icon="Google" style="display:contents"></span></button>
+          <button type="button" data-p="Facebook" aria-label="Sign in with Facebook"><span data-icon="Facebook" style="display:contents"></span></button>
+          <button type="button" data-p="Apple" aria-label="Sign in with Apple"><span data-icon="Apple" style="display:contents"></span></button>
+        </div>
+        <div class="newacct"><span>New to LendIT?</span><button type="button" class="go ghost" data-go="signup">Create an account</button></div>
+      </form></div>
+
+      <div class="view" id="v-signup"><form data-f="signup" novalidate>
+        <h2>Create an account</h2>
+        <label for="semail">Email address</label>
+        <div class="field"><input id="semail" type="email" placeholder="Enter email address" autocomplete="email" inputmode="email"></div>
+        <label for="sname">Full name</label>
+        <div class="field"><input id="sname" type="text" placeholder="Enter your full name" autocomplete="name"></div>
+        <label for="spass">Password</label>
+        <div class="field"><input id="spass" type="password" placeholder="At least 8 characters" autocomplete="new-password" data-meter="m1"><button type="button" class="eye" aria-label="Show password"></button></div>
+        <div class="meter"><i id="m1"></i></div><div class="mlabel" id="m1l">Use 8+ characters with letters, numbers and symbols.</div>
+        <div class="row"><label class="chk"><input type="checkbox" id="terms"> I agree to the Terms and Privacy Policy</label></div>
+        <p class="msg" role="alert"></p>
+        <button class="go" type="submit">CREATE ACCOUNT</button>
+      </form></div>
+
+      <div class="view" id="v-forgot"><form data-f="forgot" novalidate>
+        <h2>Forgot password?</h2>
+        <p class="sub">Enter your email and we’ll send a 6-digit code to reset it.</p>
+        <label for="femail">Email address</label>
+        <div class="field"><input id="femail" type="email" placeholder="Enter email address" autocomplete="email"></div>
+        <p class="msg" role="alert"></p>
+        <button class="go" type="submit">SEND CODE</button>
+      </form></div>
+
+      <div class="view" id="v-code"><form data-f="code" novalidate>
+        <h2>Enter your code</h2>
+        <p class="sub" id="codeSub"></p>
+        <label for="code">6-digit code</label>
+        <div class="field"><input id="code" type="tel" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code"></div>
+        <div class="row"><span></span><button type="button" class="link" id="resend">Send a new code</button></div>
+        <p class="msg" role="alert"></p>
+        <button class="go" type="submit">VERIFY</button>
+      </form></div>
+
+      <div class="view" id="v-reset"><form data-f="reset" novalidate>
+        <h2>Choose a new password</h2>
+        <label for="rpass">New password</label>
+        <div class="field"><input id="rpass" type="password" placeholder="At least 8 characters" autocomplete="new-password" data-meter="m2"><button type="button" class="eye" aria-label="Show password"></button></div>
+        <div class="meter"><i id="m2"></i></div><div class="mlabel" id="m2l"></div>
+        <p class="msg" role="alert"></p>
+        <button class="go" type="submit">SAVE PASSWORD</button>
+      </form></div>
+
+      <div class="view" id="v-prov">
+        <h2 id="provH">Choose an account</h2>
+        <p class="sub" id="provSub"></p>
+        <div id="acctList"></div>
+        <form data-f="prov" novalidate>
+          <label for="pemail" id="pLbl">Use another account</label>
+          <div class="field"><input id="pemail" type="email" placeholder="Enter email address" autocomplete="email"></div>
+          <p class="msg" role="alert"></p>
+          <button class="go" type="submit">NEXT</button>
+        </form>
+        <p class="demo">Demo mode: no real Google, Facebook or Apple account is contacted.</p>
+      </div>
+
+      <div class="view cons" id="v-consent">
+        <div class="pi"><span data-icon="" id="cIcon" style="display:contents"></span><span>→</span><img id="cLogo" alt="LendIT" width="48" height="44"></div>
+        <h2 id="cH">LendIT wants access</h2>
+        <p class="sub" id="cSub"></p>
+        <ul><li>Your name and email address</li><li>Your profile picture</li></ul>
+        <button class="go" id="allow" type="button">ALLOW</button>
+        <button class="go ghost" id="deny" type="button">Cancel</button>
+        <p class="demo">LendIT only receives this basic info, never your password.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<div class="success" id="success" role="status" aria-live="polite" aria-hidden="true">
+  <div class="success-card">
+    <svg class="check" viewBox="0 0 52 52" aria-hidden="true"><circle class="check-circle" cx="26" cy="26" r="24"/><path class="check-mark" d="M15 27l8 8 15-17"/></svg>
+    <p class="success-title">Logged in successfully</p>
+    <p class="success-sub" id="successSub"></p>
+  </div>
+</div>
+
+<script src="login.js" defer></script>
+</body>
+</html>

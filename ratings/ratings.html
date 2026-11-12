@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ratings | LendIT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="ratings.css">
+
+  <script src="../transition.js"></script>
+</head>
+<body data-view="user">
+  <script src="../shared.js"></script>
+
+  <main class="bp-main">
+    <h1 class="bp-title">RATINGS</h1>
+
+    <!-- ADMIN ONLY: approve or decline pending borrow requests (loans with status REQUESTED) -->
+    <section class="requests-panel admin-only" aria-labelledby="reqTitle">
+      <h2 class="section-title" id="reqTitle">BORROW REQUESTS <span class="count-pill" id="reqCount">0</span></h2>
+      <div class="table-container">
+        <div class="table-header">
+          <span>ITEM</span>
+          <span>DATE REQUESTED</span>
+          <span>STATUS</span>
+          <span>ACTION</span>
+        </div>
+        <ul class="ratings-list requests-list" id="requestsList"></ul>
+        <p class="empty-msg" id="requestsEmpty" hidden>No pending borrow requests.</p>
+      </div>
+    </section>
+
+    <h2 class="section-title admin-only">BORROWER RATINGS</h2>
+
+    <div class="filter-container">
+      <div class="filters">
+        <span class="filter-label" id="filterLabel">FILTER BY:</span>
+
+        <div class="filter-buttons" role="group" aria-labelledby="filterLabel">
+          <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">ALL</button>
+          <button type="button" class="filter-btn" data-filter="5" aria-pressed="false"><span class="num">5</span> STARS</button>
+          <button type="button" class="filter-btn" data-filter="4" aria-pressed="false"><span class="num">4</span> STARS</button>
+          <button type="button" class="filter-btn" data-filter="3" aria-pressed="false"><span class="num">3</span> STARS</button>
+          <button type="button" class="filter-btn" data-filter="2" aria-pressed="false"><span class="num">2</span> STARS</button>
+          <button type="button" class="filter-btn" data-filter="1" aria-pressed="false"><span class="num">1</span> STAR</button>
+        </div>
+
+        <div class="filter-dropdown-wrapper">
+          <select class="filter-dropdown" id="filterSelect" aria-labelledby="filterLabel">
+            <option value="all">ALL</option>
+            <option value="5">5 STARS</option>
+            <option value="4">4 STARS</option>
+            <option value="3">3 STARS</option>
+            <option value="2">2 STARS</option>
+            <option value="1">1 STAR</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- DEMO ONLY: switches between the user view and the admin view. -->
+      <div class="view-switch" role="group" aria-label="Preview the page as">
+        <span class="view-switch__label">VIEW AS:</span>
+        <button type="button" class="view-btn active" data-view="user" aria-pressed="true">USER</button>
+        <button type="button" class="view-btn" data-view="admin" aria-pressed="false">ADMIN</button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-header">
+        <span>ITEM</span>
+        <span>RATING</span>
+        <span>STATUS</span>
+        <span>ACTION</span>
+      </div>
+
+      <ul class="ratings-list" id="ratingsList">
+
+        <li class="table-row rating-item" tabindex="0"
+            data-borrower="Juan Dela Cruz"
+            data-comment="Returned on time and in great condition. Thank you!">
+          <div class="item-info">
+            <button class="item-thumb" type="button" aria-label="View photo of Calculator">
+              <img src="../images/scical.png" alt="" onerror="this.remove()">
+              <span class="zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M10 7.5v5M7.5 10h5"/></svg></span>
+            </button>
+            <div class="item-text">
+              <span class="cell-label">ITEM</span>
+              <h2 class="item-name">Calculator</h2>
+              <p class="item-borrower admin-only">Borrower: Juan Dela Cruz</p>
+            </div>
+          </div>
+          <div class="item-rating">
+            <span class="cell-label">RATING</span>
+            <span class="stars" aria-hidden="true"></span>
+            <span class="rating-text">Rated: <span class="rating-num">5</span> <span class="rating-unit">Stars</span></span>
+          </div>
+          <div class="item-status">
+            <span class="cell-label">STATUS</span>
+            <span class="badge completed">Completed</span>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-view user-only" type="button">View Rating</button>
+            <button class="btn btn-rate admin-only" type="button">Rate this borrower</button>
+            <button class="btn btn-delete admin-only" type="button">Delete Review</button>
+          </div>
+        </li>
+
+        <li class="table-row rating-item" tabindex="0"
+            data-borrower="Juan Dela Cruz"
+            data-comment="Cable came back clean and complete. Very reliable borrower.">
+          <div class="item-info">
+            <button class="item-thumb" type="button" aria-label="View photo of HDMI Cable">
+              <img src="../images/hdmi.png" alt="" onerror="this.remove()">
+              <span class="zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M10 7.5v5M7.5 10h5"/></svg></span>
+            </button>
+            <div class="item-text">
+              <span class="cell-label">ITEM</span>
+              <h2 class="item-name">HDMI Cable</h2>
+              <p class="item-borrower admin-only">Borrower: Juan Dela Cruz</p>
+            </div>
+          </div>
+          <div class="item-rating">
+            <span class="cell-label">RATING</span>
+            <span class="stars" aria-hidden="true"></span>
+            <span class="rating-text">Rated: <span class="rating-num">5</span> <span class="rating-unit">Stars</span></span>
+          </div>
+          <div class="item-status">
+            <span class="cell-label">STATUS</span>
+            <span class="badge completed">Completed</span>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-view user-only" type="button">View Rating</button>
+            <button class="btn btn-rate admin-only" type="button">Rate this borrower</button>
+            <button class="btn btn-delete admin-only" type="button">Delete Review</button>
+          </div>
+        </li>
+
+        <li class="table-row rating-item" tabindex="0"
+            data-borrower="Juan Dela Cruz"
+            data-comment="Returned one day late, but the item was in good condition.">
+          <div class="item-info">
+            <button class="item-thumb" type="button" aria-label="View photo of Power Cable">
+              <img src="../images/powercable.png" alt="" onerror="this.remove()">
+              <span class="zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M10 7.5v5M7.5 10h5"/></svg></span>
+            </button>
+            <div class="item-text">
+              <span class="cell-label">ITEM</span>
+              <h2 class="item-name">Power Cable</h2>
+              <p class="item-borrower admin-only">Borrower: Juan Dela Cruz</p>
+            </div>
+          </div>
+          <div class="item-rating">
+            <span class="cell-label">RATING</span>
+            <span class="stars" aria-hidden="true"></span>
+            <span class="rating-text">Rated: <span class="rating-num">4</span> <span class="rating-unit">Stars</span></span>
+          </div>
+          <div class="item-status">
+            <span class="cell-label">STATUS</span>
+            <span class="badge completed">Completed</span>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-view user-only" type="button">View Rating</button>
+            <button class="btn btn-rate admin-only" type="button">Rate this borrower</button>
+            <button class="btn btn-delete admin-only" type="button">Delete Review</button>
+          </div>
+        </li>
+
+      </ul>
+
+      <p class="empty-msg" id="emptyState" hidden>No ratings found for this filter.</p>
+    </div>
+
+    <nav class="pagination" id="pagination" aria-label="Ratings pages"></nav>
+  </main>
+
+  <!-- ===== POP-UPS ===== -->
+  <dialog id="viewDialog" class="modal" aria-labelledby="viewTitle">
+    <div class="modal__panel">
+      <button type="button" class="modal__close" data-close aria-label="Close">&times;</button>
+      <p class="modal__eyebrow">Rating</p>
+      <div class="view-head">
+        <div class="view-thumb" id="viewThumb"></div>
+        <div>
+          <h2 class="modal__title" id="viewTitle"></h2>
+          <p class="modal__meta" id="viewBorrower"></p>
+        </div>
+      </div>
+      <div class="score">
+        <span class="score__num" id="viewNum"></span>
+        <div>
+          <div class="stars stars--lg" id="viewStars" aria-hidden="true"></div>
+          <span class="tier" id="viewTier"></span>
+        </div>
+      </div>
+      <h3 class="modal__sub">Comment / Review</h3>
+      <p class="modal__comment" id="viewComment"></p>
+      <div class="modal__actions">
+        <button type="button" class="modal__dismiss" data-close>Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="rateDialog" class="modal" aria-labelledby="rateTitle">
+    <form class="modal__panel" id="rateForm" novalidate>
+      <button type="button" class="modal__close" data-close aria-label="Close">&times;</button>
+      <p class="modal__eyebrow">Rate this borrower</p>
+      <h2 class="modal__title" id="rateTitle"></h2>
+      <p class="modal__meta" id="rateBorrower"></p>
+
+      <fieldset class="star-picker" id="starPicker">
+        <legend>Your rating</legend>
+        <div class="star-picker__row">
+          <input type="radio" name="rate" id="rate1" value="1"><label for="rate1"><span class="visually-hidden">1 star</span><span aria-hidden="true">★</span></label>
+          <input type="radio" name="rate" id="rate2" value="2"><label for="rate2"><span class="visually-hidden">2 stars</span><span aria-hidden="true">★</span></label>
+          <input type="radio" name="rate" id="rate3" value="3"><label for="rate3"><span class="visually-hidden">3 stars</span><span aria-hidden="true">★</span></label>
+          <input type="radio" name="rate" id="rate4" value="4"><label for="rate4"><span class="visually-hidden">4 stars</span><span aria-hidden="true">★</span></label>
+          <input type="radio" name="rate" id="rate5" value="5"><label for="rate5"><span class="visually-hidden">5 stars</span><span aria-hidden="true">★</span></label>
+        </div>
+      </fieldset>
+
+      <label class="field-label" for="rateComment">Comment / Review</label>
+      <textarea id="rateComment" class="field" rows="4" maxlength="300" placeholder="Write a short comment about the borrower…"></textarea>
+      <p class="char-count"><span id="rateCount">0</span>/300</p>
+
+      <div class="modal__actions">
+        <button type="submit" class="modal__go">Save Rating</button>
+        <button type="button" class="modal__dismiss" data-close>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="photoDialog" class="modal" aria-labelledby="photoTitle">
+    <div class="modal__panel">
+      <button type="button" class="modal__close" data-close aria-label="Close">&times;</button>
+      <h2 class="modal__title" id="photoTitle"></h2>
+      <div class="photo-frame" id="photoFrame"></div>
+    </div>
+  </dialog>
+
+  <dialog id="confirmDialog" class="modal modal--sm" aria-labelledby="confirmTitle">
+    <div class="modal__panel">
+      <h2 class="modal__title" id="confirmTitle">Delete this review?</h2>
+      <p class="modal__comment">This can’t be undone.</p>
+      <div class="modal__actions">
+        <button type="button" class="modal__go" id="confirmYes">Yes, delete</button>
+        <button type="button" class="modal__dismiss" data-close>No</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="decisionDialog" class="modal modal--sm" aria-labelledby="decisionTitle">
+    <div class="modal__panel">
+      <h2 class="modal__title" id="decisionTitle"></h2>
+      <p class="modal__comment" id="decisionText"></p>
+      <div class="modal__actions">
+        <button type="button" class="modal__go" id="decisionYes">Yes</button>
+        <button type="button" class="modal__dismiss" data-close>No</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../items-data.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    const $ = id => document.getElementById(id);
+    const PAGE_SIZE = 5;
+
+    const list = $('ratingsList');
+    const emptyState = $('emptyState');
+    const pagination = $('pagination');
+    let rows = [...list.querySelectorAll('.rating-item')];
+    let filter = 'all';
+    let page = 1;
+    let activeRow = null;
+
+    const clamp = n => Math.min(5, Math.max(1, parseInt(n, 10) || 1));
+    const starText = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+    const tierOf = n => n >= 5 ? 'Excellent' : n >= 4 ? 'Good' : n >= 3 ? 'Fair' : 'Needs improvement';
+    const ratingOf = row => clamp(row.querySelector('.rating-num').textContent);
+    const nameOf = row => row.querySelector('.item-name').textContent.trim();
+    const imgOf = row => row.querySelector('.item-thumb img');
+
+    let toastTimer;
+    function toast(text) {
+      const t = $('toast');
+      t.textContent = text;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+    }
+
+    function syncRow(row) {
+      const n = ratingOf(row);
+      row.dataset.rating = n;
+      row.querySelector('.rating-num').textContent = n;
+      row.querySelector('.rating-unit').textContent = n === 1 ? 'Star' : 'Stars';
+      row.querySelector('.stars').textContent = starText(n);
+    }
+
+    function render() {
+      const matches = rows.filter(r => filter === 'all' || r.dataset.rating === filter);
+      const pages = Math.max(1, Math.ceil(matches.length / PAGE_SIZE));
+      page = Math.min(page, pages);
+      const start = (page - 1) * PAGE_SIZE;
+      const shown = matches.slice(start, start + PAGE_SIZE);
+
+      rows.forEach(r => { r.hidden = true; r.classList.remove('is-last'); });
+      shown.forEach(r => { r.hidden = false; });
+      if (shown.length) shown[shown.length - 1].classList.add('is-last');
+      emptyState.hidden = matches.length > 0;
+      renderPagination(pages);
+    }
+
+    function renderPagination(pages) {
+      pagination.innerHTML = '';
+      const add = (label, target, opts) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'page-btn' + (opts.active ? ' is-active' : '');
+        b.textContent = label;
+        b.setAttribute('aria-label', opts.aria);
+        if (opts.active) b.setAttribute('aria-current', 'page');
+        b.disabled = !!opts.disabled;
+        b.addEventListener('click', () => {
+          page = target;
+          render();
+          list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        pagination.appendChild(b);
+      };
+      add('‹ Prev', page - 1, { disabled: page === 1, aria: 'Previous page' });
+      for (let i = 1; i <= pages; i++) add(String(i), i, { active: i === page, aria: 'Page ' + i });
+      add('Next ›', page + 1, { disabled: page === pages, aria: 'Next page' });
+    }
+
+    function setFilter(f) {
+      filter = f;
+      page = 1;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        const on = b.dataset.filter === f;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on);
+      });
+      $('filterSelect').value = f;
+      render();
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
+    $('filterSelect').addEventListener('change', e => setFilter(e.target.value));
+
+    function setView(v) {
+      document.body.dataset.view = v;
+      document.querySelectorAll('.view-btn').forEach(b => {
+        const on = b.dataset.view === v;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on);
+      });
+    }
+    document.querySelectorAll('.view-btn').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+
+    document.addEventListener('click', e => {
+      const closer = e.target.closest('[data-close]');
+      if (closer) { closer.closest('dialog').close(); return; }
+      if (e.target.tagName === 'DIALOG') e.target.close();
+    });
+
+    function copyPhoto(container, row) {
+      container.innerHTML = '';
+      const src = imgOf(row);
+      if (!src) return false;
+      const img = document.createElement('img');
+      img.src = src.getAttribute('src');
+      img.alt = nameOf(row);
+      container.appendChild(img);
+      return true;
+    }
+
+    function openView(row) {
+      const n = ratingOf(row);
+      const isAdmin = document.body.dataset.view === 'admin';
+      copyPhoto($('viewThumb'), row);
+      $('viewTitle').textContent = nameOf(row);
+      $('viewBorrower').textContent = isAdmin && row.dataset.borrower ? 'Borrower: ' + row.dataset.borrower : '';
+      $('viewNum').textContent = n.toFixed(1);
+      $('viewStars').textContent = starText(n);
+      $('viewTier').textContent = tierOf(n);
+      $('viewComment').textContent = row.dataset.comment || 'No comment was left for this rating.';
+      $('viewDialog').showModal();
+    }
+
+    function openPhoto(row) {
+      $('photoTitle').textContent = nameOf(row);
+      const frame = $('photoFrame');
+      if (!copyPhoto(frame, row)) {
+        const p = document.createElement('p');
+        p.className = 'photo-missing';
+        p.textContent = 'No photo available for this item yet.';
+        frame.appendChild(p);
+      }
+      $('photoDialog').showModal();
+    }
+
+    const picker = $('starPicker');
+    const pickerLabels = [...picker.querySelectorAll('label')];
+    const selectedStars = () => { const c = picker.querySelector('input:checked'); return c ? +c.value : 0; };
+    const paintPicker = n => pickerLabels.forEach((l, i) => l.classList.toggle('on', i < n));
+
+    picker.querySelectorAll('input').forEach(r => r.addEventListener('change', () => paintPicker(selectedStars())));
+    pickerLabels.forEach((l, i) => l.addEventListener('mouseenter', () => paintPicker(i + 1)));
+    picker.addEventListener('mouseleave', () => paintPicker(selectedStars()));
+
+    const commentBox = $('rateComment');
+    const updateCount = () => { $('rateCount').textContent = commentBox.value.length; };
+    commentBox.addEventListener('input', updateCount);
+
+    function openRate(row) {
+      activeRow = row;
+      const unrated = row.dataset.unrated === '1';           // returned item that has no rating yet
+      const n = unrated ? 0 : ratingOf(row);
+      $('rateTitle').textContent = nameOf(row);
+      $('rateBorrower').textContent = row.dataset.borrower ? 'Borrower: ' + row.dataset.borrower : '';
+      picker.querySelectorAll('input').forEach(r => { r.checked = (+r.value === n); });
+      paintPicker(n);
+      commentBox.value = unrated ? '' : (row.dataset.comment || '');
+      updateCount();
+      $('rateDialog').showModal();
+    }
+
+    $('rateForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const n = selectedStars();
+      if (!activeRow || !n) return;
+      if (activeRow.dataset.uid) {                           // a returned loan: save the rating with the loan
+        const all = getLoans();
+        const loan = all.find(l => l.uid === activeRow.dataset.uid);
+        if (loan) { loan.rating = n; loan.comment = commentBox.value.trim(); saveLoans(all); }
+        $('rateDialog').close();
+        renderLoanRows();
+        toast('Rating saved');
+        return;
+      }
+      activeRow.querySelector('.rating-num').textContent = n;
+      activeRow.dataset.comment = commentBox.value.trim();
+      syncRow(activeRow);
+      $('rateDialog').close();
+      render();
+      toast('Rating saved');
+    });
+
+    $('confirmYes').addEventListener('click', () => {
+      if (!activeRow) return;
+      if (activeRow.dataset.uid) {                           // a returned loan: remove the rating, keep the return listed
+        const all = getLoans();
+        const loan = all.find(l => l.uid === activeRow.dataset.uid);
+        if (loan) { delete loan.rating; delete loan.comment; saveLoans(all); }
+        activeRow = null;
+        $('confirmDialog').close();
+        renderLoanRows();
+        toast('Review deleted');
+        return;
+      }
+      rows = rows.filter(r => r !== activeRow);
+      activeRow.remove();
+      activeRow = null;
+      $('confirmDialog').close();
+      render();
+      toast('Review deleted');
+    });
+
+    list.addEventListener('click', e => {
+      const row = e.target.closest('.rating-item');
+      if (!row) return;
+      if (e.target.closest('.item-thumb')) { openPhoto(row); return; }
+      if (e.target.closest('.btn-rate')) { openRate(row); return; }
+      if (e.target.closest('.btn-delete')) { activeRow = row; $('confirmDialog').showModal(); return; }
+      if (row.dataset.unrated === '1') { if (document.body.dataset.view === 'admin') openRate(row); return; }
+      openView(row);
+    });
+    list.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' || !e.target.classList.contains('rating-item')) return;
+      if (e.target.dataset.unrated === '1') { if (document.body.dataset.view === 'admin') openRate(e.target); return; }
+      openView(e.target);
+    });
+
+    /* ---------- Borrow requests (admin) ----------
+       Approve: REQUESTED -> BORROWED (24h starts now, stock goes down by 1).
+       Decline: REQUESTED -> DECLINED.
+       BACKEND: replace getLoans() / saveLoans() / setCount() with API calls. */
+    const requestsList = $('requestsList');
+    const requestsEmpty = $('requestsEmpty');
+    let pending = null;
+
+    function el(tag, cls, text) {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    }
+
+    function fmtDate(iso) {
+      const d = new Date(iso);
+      return isNaN(d) ? String(iso) : d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    function requesterName() {
+      const p = readStore('lendit_profile', null);
+      return (p && typeof p.name === 'string' && p.name.trim()) || 'Borrower';
+    }
+
+    function buildRequestRow(loan, item) {
+      const stock = getCount(item.id);
+      const row = el('li', 'table-row request-item');
+      row.dataset.uid = loan.uid;
+
+      const info = el('div', 'item-info');
+      const thumb = el('button', 'item-thumb');
+      thumb.type = 'button';
+      thumb.setAttribute('aria-label', 'View photo of ' + item.name);
+      if (item.image) {
+        const img = document.createElement('img');
+        img.src = '../' + item.image.replace(/^\//, '');
+        img.alt = '';
+        img.addEventListener('error', () => img.remove());
+        thumb.appendChild(img);
+      }
+      const zoom = el('span', 'zoom-badge');
+      zoom.setAttribute('aria-hidden', 'true');
+      zoom.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M10 7.5v5M7.5 10h5"/></svg>';
+      thumb.appendChild(zoom);
+
+      const text = el('div', 'item-text');
+      text.append(
+        el('span', 'cell-label', 'ITEM'),
+        el('h2', 'item-name', item.name),
+        el('p', 'item-borrower', 'Requested by: ' + requesterName()),
+        el('p', 'item-borrower', 'In stock: ' + stock)
+      );
+      info.append(thumb, text);
+
+      const date = el('div', 'item-date');
+      date.append(el('span', 'cell-label', 'DATE REQUESTED'), el('span', 'rating-text', fmtDate(loan.date)));
+
+      const status = el('div', 'item-status');
+      status.append(el('span', 'cell-label', 'STATUS'), el('span', 'badge requested', 'Requested'));
+
+      const actions = el('div', 'item-actions');
+      const approve = el('button', 'btn btn-approve', 'Approve');
+      approve.type = 'button';
+      approve.dataset.action = 'approve';
+      if (stock <= 0) {
+        approve.disabled = true;
+        approve.title = 'No stock left for this item';
+      }
+      const decline = el('button', 'btn btn-decline', 'Decline');
+      decline.type = 'button';
+      decline.dataset.action = 'decline';
+      actions.append(approve, decline);
+
+      row.append(info, date, status, actions);
+      return row;
+    }
+
+    function renderRequests() {
+      const queue = getLoans()
+        .filter(l => l.status === 'REQUESTED')
+        .map(l => ({ loan: l, item: getItem(l.itemId) }))
+        .filter(x => x.item)
+        .sort((a, b) => new Date(b.loan.date) - new Date(a.loan.date));
+
+      requestsList.innerHTML = '';
+      queue.forEach((x, i) => {
+        const row = buildRequestRow(x.loan, x.item);
+        if (i === queue.length - 1) row.classList.add('is-last');
+        requestsList.appendChild(row);
+      });
+      requestsEmpty.hidden = queue.length > 0;
+      $('reqCount').textContent = queue.length;
+    }
+
+    /* ---------- Returned items (admin rates the borrower) ----------
+       When a user returns an item on My Borrows (status RETURNED) it shows up here,
+       waiting for the admin's rating. The rating is saved on the loan (rating, comment).
+       BACKEND: load these from your API instead of getLoans(). */
+    function buildLoanRow(loan, item) {
+      const rated = !!loan.rating;
+      const borrower = requesterName();
+      const row = el('li', 'table-row rating-item');
+      row.tabIndex = 0;
+      row.dataset.uid = loan.uid;
+      row.dataset.borrower = borrower;
+      if (rated) row.dataset.comment = loan.comment || '';
+      else row.dataset.unrated = '1';
+
+      const info = el('div', 'item-info');
+      const thumb = el('button', 'item-thumb');
+      thumb.type = 'button';
+      thumb.setAttribute('aria-label', 'View photo of ' + item.name);
+      if (item.image) {
+        const img = document.createElement('img');
+        img.src = '../' + item.image.replace(/^\//, '');
+        img.alt = '';
+        img.addEventListener('error', () => img.remove());
+        thumb.appendChild(img);
+      }
+      const text = el('div', 'item-text');
+      text.append(
+        el('span', 'cell-label', 'ITEM'),
+        el('h2', 'item-name', item.name),
+        el('p', 'item-borrower admin-only', 'Borrower: ' + borrower)
+      );
+      if (loan.returnedAt) text.append(el('p', 'item-borrower admin-only', 'Returned: ' + fmtDate(loan.returnedAt)));
+      info.append(thumb, text);
+
+      const rating = el('div', 'item-rating');
+      rating.append(el('span', 'cell-label', 'RATING'));
+      if (rated) {
+        const stars = el('span', 'stars');
+        stars.setAttribute('aria-hidden', 'true');
+        const rt = el('span', 'rating-text', 'Rated: ');
+        rt.append(el('span', 'rating-num', String(loan.rating)), document.createTextNode(' '), el('span', 'rating-unit', 'Stars'));
+        rating.append(stars, rt);
+      } else {
+        rating.append(el('span', 'rating-text', 'Not rated yet'));
+      }
+
+      const status = el('div', 'item-status');
+      status.append(el('span', 'cell-label', 'STATUS'),
+        rated ? el('span', 'badge completed', 'Completed') : el('span', 'badge awaiting', 'Returned'));
+
+      const actions = el('div', 'item-actions');
+      if (rated) actions.append(el('button', 'btn btn-view user-only', 'View Rating'));
+      actions.append(el('button', 'btn btn-rate admin-only', 'Rate this borrower'));
+      if (rated) actions.append(el('button', 'btn btn-delete admin-only', 'Delete Review'));
+      actions.querySelectorAll('button').forEach(b => { b.type = 'button'; });
+
+      row.append(info, rating, status, actions);
+      return row;
+    }
+
+    function renderLoanRows() {
+      list.querySelectorAll('.rating-item[data-uid]').forEach(r => r.remove());
+      const returned = getLoans()
+        .filter(l => l.status === 'RETURNED' && String(l.uid).indexOf('seed-') !== 0)   // seed-3 is already the sample Power Cable row
+        .map(l => ({ loan: l, item: getItem(l.itemId) }))
+        .filter(x => x.item)
+        .sort((a, b) => new Date(b.loan.returnedAt || b.loan.date) - new Date(a.loan.returnedAt || a.loan.date));
+      const frag = document.createDocumentFragment();
+      returned.forEach(x => frag.appendChild(buildLoanRow(x.loan, x.item)));
+      list.insertBefore(frag, list.firstChild);              // newest returns on top
+
+      rows = [...list.querySelectorAll('.rating-item')];
+      rows.filter(r => r.querySelector('.rating-num')).forEach(syncRow);
+      render();
+    }
+
+    function askDecision(row, action) {
+      const loan = getLoans().find(l => l.uid === row.dataset.uid);
+      const item = loan && getItem(loan.itemId);
+      if (!item) { renderRequests(); return; }
+      pending = { uid: loan.uid, action: action };
+      const approve = action === 'approve';
+      $('decisionTitle').textContent = approve ? 'Approve this request?' : 'Decline this request?';
+      $('decisionText').textContent = approve
+        ? item.name + ' will be marked as borrowed and one unit will leave the stock. The 24-hour borrow period starts now.'
+        : 'The request for ' + item.name + ' will be declined.';
+      $('decisionYes').textContent = approve ? 'Yes, approve' : 'Yes, decline';
+      $('decisionDialog').showModal();
+    }
+
+    function applyDecision() {
+      if (!pending) return;
+      const all = getLoans();
+      const loan = all.find(l => l.uid === pending.uid && l.status === 'REQUESTED');
+      const action = pending.action;
+      pending = null;
+      $('decisionDialog').close();
+      if (!loan) { renderRequests(); return; }
+
+      if (action === 'approve') {
+        const left = getCount(loan.itemId);
+        if (left <= 0) { toast('No stock left for this item'); renderRequests(); return; }
+        setCount(loan.itemId, left - 1);
+        loan.status = 'BORROWED';
+        loan.date = new Date().toISOString();                 // due date counts from approval
+        // sample loans (seed-*) never took stock, so My Borrows skips giving it back;
+        // approved ones did take stock, so give them a normal id
+        if (loan.uid.indexOf('seed-') === 0) loan.uid = 'a' + Date.now();
+      } else {
+        loan.status = 'DECLINED';
+      }
+      loan.decidedAt = new Date().toISOString();
+      saveLoans(all);
+      renderRequests();
+      toast(action === 'approve' ? 'Request approved' : 'Request declined');
+    }
+
+    requestsList.addEventListener('click', e => {
+      const row = e.target.closest('.request-item');
+      if (!row) return;
+      if (e.target.closest('.item-thumb')) { openPhoto(row); return; }
+      const btn = e.target.closest('.btn[data-action]');
+      if (btn && !btn.disabled) askDecision(row, btn.dataset.action);
+    });
+    $('decisionYes').addEventListener('click', applyDecision);
+    $('decisionDialog').addEventListener('close', () => { pending = null; });
+    window.addEventListener('pageshow', e => { if (e.persisted) { renderRequests(); renderLoanRows(); } });
+    window.addEventListener('storage', e => { if (e.key === 'lendit_loans' || e.key === 'lendit_counts') { renderRequests(); renderLoanRows(); } });
+
+    renderRequests();
+    rows.forEach(syncRow);
+    renderLoanRows();
+    setView('user');
+    setFilter('all');
+  })();
+  </script>
+</body>
+</html>

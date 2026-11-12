@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LendIT</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../shared.css">
+  
+  <script src="../transition.js"></script>
+</head>
+<body>
+
+  <script src="../shared.js"></script>
+
+  <main>
+    <section class="section">
+      <h2 class="title">AVAILABLE ITEMS</h2>
+
+      <div class="carousel-wrap">
+        <button class="arrow left" id="prevBtn" aria-label="Previous">&#10094;</button>
+        <div class="carousel" id="carousel"></div>
+        <button class="arrow right" id="nextBtn" aria-label="Next">&#10095;</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="title">ALL ITEMS</h2>
+
+      <div class="grid" id="itemGrid"></div>
+
+      <p class="no-results" id="noResults" hidden>No items found.</p>
+    </section>
+
+  </main>
+
+  <script src="../items-data.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>
